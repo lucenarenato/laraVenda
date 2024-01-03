@@ -8,6 +8,8 @@
         {{-- bootstrap css --}}
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
+        <link href="css/style.css" rel="stylesheet">
+
         <title>Laravel</title>
     </head>
     <body>
@@ -19,6 +21,6 @@
         {{ $slot }}
 
         {{-- bootstrap js --}}
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     </body>
 </html>
