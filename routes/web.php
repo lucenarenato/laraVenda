@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,18 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 // No Authenticated
-Route::middleware('guest')->group(function() {
-    Route::get('/login', function() {
-        return view('pages.guest.login');
-    })->name('login');
-
-    Route::get('/registro', function() {
-        return view('pages.guest.register');
-    })->name('register');
+Route::middleware('guest')->name('guest.')->group(function() {
+    Route::get('/login', [AuthenticationController::class, 'index'])->name('index');
+    Route::get('/registrar', [AuthenticationController::class, 'register'])->name('register');
+    Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
 });
 
-
 // Authenticated
-Route::middleware('auth')->get('/', function () {
-    return view('pages.index');
+Route::middleware('auth')->group(function() {
+    Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+
+    Route::get('/', function () {
+        return view('pages.index');
+    })->name('initial');
 });

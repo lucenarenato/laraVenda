@@ -14,8 +14,13 @@
     </head>
     <body>
         @auth
-            <header>
-                <strong>Header</strong>
+            <header class="py-4">
+                <div class="d-flex justify-content-between container">
+                    <strong>Header</strong>
+                    <button>
+                        <a href="{{ route('logout') }}">Logout</a>
+                    </button>
+                </div>
             </header>
         @endauth
         {{ $slot }}

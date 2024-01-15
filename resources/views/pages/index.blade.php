@@ -1,3 +1,5 @@
 <x-app-layout>
-    <h1>Index</h1>
+    <div class="container">
+        <h1>Index</h1>
+    </div>
 </x-app-layout>
