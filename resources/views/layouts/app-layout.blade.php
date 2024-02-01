@@ -6,23 +6,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         {{-- bootstrap css --}}
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         <title>Laravel</title>
     </head>
     <body>
-        @auth
-            <header class="py-4">
-                <div class="d-flex justify-content-between container">
-                    <strong>Header</strong>
-                    <button>
-                        <a href="{{ route('logout') }}">Logout</a>
-                    </button>
-                </div>
-            </header>
-        @endauth
         {{ $slot }}
 
         {{-- bootstrap js --}}

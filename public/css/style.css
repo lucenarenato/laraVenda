@@ -7,4 +7,27 @@
 html, body {
     height: 100%;
     min-width: 280px;
+    background-color: rgb(235, 235, 235);
+}
+
+.dashboard-aside {
+    width: 20rem;
+}
+
+.link-dark-hover:hover {
+    background-color: rgb(54, 60, 66) !important;
+}
+
+.active-dash-sidebar {
+    background-color: rgb(54, 60, 66) !important;
+}
+
+.link-user-hover:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard-aside {
+        width: 10rem;
+    }
 }

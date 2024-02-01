@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +27,10 @@ Route::middleware('guest')->name('guest.')->group(function() {
 Route::middleware('auth')->group(function() {
     Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-    Route::get('/', function () {
-        return view('pages.index');
-    })->name('initial');
+    Route::get('/', [AdminController::class, 'index'])->name('initial');
+
+    Route::prefix('produtos')->name('product.')->group(function() {
+        Route::get('listar', [ProductController::class, 'index'])->name('list');
+        Route::get('adicionar', [ProductController::class, 'create'])->name('add');
+    });
 });
