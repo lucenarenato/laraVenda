@@ -2,14 +2,18 @@
     <main class="bg-white container py-4" style="margin-top: 4.5rem;">
         <div class="px-4 py-2">
             <h2>Cadastrar Produto</h2>
-            <form action="" class="w-100 h-100 my-4">
-                <div class="row mt-4">
+            <form action="" class="w-100 h-100" style="margin-top: 3.5rem;">
+                <div class="row">
                     <div class="col-md-4">
                         <label class="" for="">Nome</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-4">
-                        <label class="" for="">Preço</label><br />
+                        <label class="" for="">Preço de Custo</label><br />
+                        <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="" for="">Preço de Venda</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-4">

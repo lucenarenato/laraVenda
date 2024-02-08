@@ -8,6 +8,8 @@
         {{-- bootstrap css --}}
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
+        {{-- font awesome css --}}
+        <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         <title>Laravel</title>
@@ -16,6 +18,9 @@
         {{ $slot }}
 
         {{-- bootstrap js --}}
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script type="module" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+        {{-- fontawesome js --}}
+        <script src="{{ asset('js/all.min.js') }}"></script>
     </body>
 </html>
