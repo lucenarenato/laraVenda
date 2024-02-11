@@ -8,7 +8,7 @@
                     </li>
                 </a>
                 <li type="button" class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0" data-bs-toggle="collapse" data-bs-target="#productsCollapse">
-                    <i class="fa-solid fa-box"></i> <span style="display: inline-block; padding-left: 0.8rem;">Produtos</span>
+                    <i class="fa-solid fa-box"></i> <span style="display: inline-block; padding-left: 0.8rem;">Produtos <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
                 </li>
                 <div class="dash-sidebar-submenu collapse {{ request()->segment(1) == 'produtos' ? 'show' : '' }}" id="productsCollapse">
                     <a class="text-decoration-none" href="{{ route('product.add') }}">
@@ -22,16 +22,32 @@
                         </li>
                     </a>
                 </div>
-                <a class="text-decoration-none" href="/">
-                    <li class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0">
-                        <i class="fa-solid fa-receipt"></i> <span style="display: inline-block; padding-left: 0.8rem;">Pedidos</span>
-                    </li>
-                </a>
-                <a class="text-decoration-none" href="/">
-                    <li class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0">
-                        <i class="fa-solid fa-user"></i> <span style="display: inline-block; padding-left: 0.8rem;">Usuários</span>
-                    </li>
-                </a>
+                <li type="button" class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0" data-bs-toggle="collapse" data-bs-target="#invoicesCollapse">
+                    <i class="fa-solid fa-list-ul"></i> <span style="display: inline-block; padding-left: 0.8rem;">Pedidos <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
+                </li>
+                <div class="dash-sidebar-submenu collapse {{ request()->segment(1) == 'pedidos' ? 'show' : '' }}" id="invoicesCollapse">
+                    <a class="text-decoration-none" href="{{ route('invoice.list') }}">
+                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('invoice.list') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
+                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-table-list"></i>&nbsp; Listar</span>
+                        </li>
+                    </a>
+                </div>
+
+                <li type="button" class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0" data-bs-toggle="collapse" data-bs-target="#usersCollapse">
+                    <i class="fa-solid fa-users"></i> <span style="display: inline-block; padding-left: 0.8rem;">Usuários <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
+                </li>
+                <div class="dash-sidebar-submenu collapse {{ request()->segment(1) == 'usuarios' ? 'show' : '' }}" id="usersCollapse">
+                    <a class="text-decoration-none" href="{{ route('user.add') }}">
+                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('user.add') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
+                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-plus"></i>&nbsp; Adicionar</span>
+                        </li>
+                    </a>
+                    <a class="text-decoration-none" href="{{ route('user.list') }}">
+                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('user.list') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
+                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-table-list"></i>&nbsp; Listar</span>
+                        </li>
+                    </a>
+                </div>
             </ul>
         </aside>
         <div class="w-100">

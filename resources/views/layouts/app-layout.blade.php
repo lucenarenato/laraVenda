@@ -22,5 +22,7 @@
 
         {{-- fontawesome js --}}
         <script src="{{ asset('js/all.min.js') }}"></script>
+
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +34,15 @@ Route::middleware('auth')->group(function() {
     Route::prefix('produtos')->name('product.')->group(function() {
         Route::get('listar', [ProductController::class, 'index'])->name('list');
         Route::get('adicionar', [ProductController::class, 'create'])->name('add');
+    });
+
+    Route::prefix('pedidos')->name('invoice.')->group(function() {
+        Route::get('listar', [InvoiceController::class, 'index'])->name('list');
+        Route::get('adicionar', [InvoiceController::class, 'create'])->name('add');
+    });
+
+    Route::prefix('usuarios')->name('user.')->group(function() {
+        Route::get('listar', [UserController::class, 'index'])->name('list');
+        Route::get('adicionar', [UserController::class, 'create'])->name('add');
     });
 });
