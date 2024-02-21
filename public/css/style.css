@@ -1,4 +1,5 @@
 @import url('./font-sizes.css');
+@import url('./colors.css');
 
 * {
     margin: 0;
