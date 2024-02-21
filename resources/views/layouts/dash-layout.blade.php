@@ -51,10 +51,10 @@
             </ul>
         </aside>
         <div class="w-100">
-            <nav class="d-flex justify-content-end px-4 py-3 bg-white shadow-sm">
+            <nav class="d-flex justify-content-end px-4 py-3 bg-white shadow-sm position-relative">
                 <ul class="nav">
                     <div class="dropdown">
-                        <li type="button" class="nav-item" id="dropdown-menu" data-bs-toggle="dropdown">
+                        <li type="button" class="nav-item dropdown-toggle" id="dropdown-menu" data-bs-toggle="dropdown">
                             <i class="fa-solid fa-circle-user" style="font-size: 1.8rem;"></i>
                         </li>
                         <ul class="dropdown-menu mt-3" aria-labelledby="dropdown-menu">

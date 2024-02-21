@@ -1,35 +1,40 @@
 <x-dash-layout>
-    <main class="bg-white container py-4" style="margin-top: 4.5rem;">
+    <nav class="bg-white">
+        <ol class="breadcrumb px-4 py-3 shadow-sm text-secondary" style="--bs-breadcrumb-divider: '>>';">
+            <li class="breadcrumb-item fw-bold">Produtos</li>
+            <li class="breadcrumb-item fw-bold">Adicionar</li>
+        </ol>
+    </nav>
+    <main class="bg-white container py-4" style="margin-top: 3.05rem;">
         <div class="px-4 py-2">
-            <h2>Cadastrar</h2>
-            <form action="" class="w-100 h-100" style="margin-top: 3.5rem;">
+            <form action="" class="w-100 h-100 mt-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="" for="">Nome</label><br />
+                        <label class="fw-bold" for="">Nome</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-4">
-                        <label class="" for="">Preço de Custo</label><br />
+                        <label class="fw-bold" for="">Preço de Custo</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-4">
-                        <label class="" for="">Preço de Venda</label><br />
+                        <label class="fw-bold" for="">Preço de Venda</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-4">
-                        <label class="" for="">SKU</label><br />
+                        <label class="fw-bold" for="">SKU</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-4">
-                        <label class="" for="">Categoria</label><br />
+                        <label class="fw-bold" for="">Categoria</label><br />
                         <select class="w-100 form-control mt-2 mb-3" name="" id=""></select>
                     </div>
                     <div class="col-md-4">
-                        <label class="" for="">Imagem</label><br />
+                        <label class="fw-bold" for="">Imagem</label><br />
                         <input class="w-100 form-control mt-2 mb-3" type="text" name="" id="">
                     </div>
                     <div class="col-md-12">
-                        <label class="" for="">Descrição</label><br />
+                        <label class="fw-bold" for="">Descrição</label><br />
                         <textarea class="w-100 form-control mt-2 mb-3 no-resize" style="resize: none; height: 8rem;" name="" id=""></textarea>
                     </div>
                     <div class="col-md-12 mt-4 text-end">
