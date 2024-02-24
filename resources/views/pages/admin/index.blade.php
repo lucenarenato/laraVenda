@@ -38,5 +38,18 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-md-7">
+                <div class="bg-white py-3 px-4">
+                    <strong>Gráfico de Ganhos e Gastos Mensais</strong>
+                </div>
+                <canvas id="chart" class="bg-white p-4"></canvas>
+            </div>
+            <div class="col-md-5">
+                <div class="bg-white">
+                    <strong>Top Produtos</strong>
+                </div>
+            </div>
+        </div>
     </div>
 </x-dash-layout>
