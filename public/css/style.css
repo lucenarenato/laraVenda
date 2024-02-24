@@ -17,6 +17,12 @@ html, body {
     width: 20rem;
 }
 
+.dash-content {
+    margin: 3rem auto !important;
+    padding: 0 4rem;
+    max-width: none !important;
+}
+
 .link-dark-hover:hover, .active-dash-sidebar {
     background-color: rgb(54, 60, 66) !important;
 }

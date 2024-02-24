@@ -1,3 +1,29 @@
+/*text colors*/
+
 .text-tertiary {
     color: rgb(67, 73, 77) !important;
+}
+
+.text-light-gray {
+    color: rgb(230, 230, 230) !important;
+}
+
+.text-light-gray-2 {
+    color: rgb(240, 240, 240) !important;
+}
+
+
+
+/* background-colors */
+
+.bg-tertiary {
+    background-color: rgb(67, 73, 77) !important;
+}
+
+.bg-light-gray {
+    background-color: rgb(230, 230, 230) !important;
+}
+
+.bg-light-gray-2 {
+    background-color: rgb(240, 240, 240) !important;
 }

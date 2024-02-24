@@ -55,6 +55,7 @@
                 <ul class="nav">
                     <div class="dropdown">
                         <li type="button" class="nav-item dropdown-toggle" id="dropdown-menu" data-bs-toggle="dropdown">
+                            <span class="bg-light-gray rounded d-inline-block position-relative px-1" style="bottom: 0.2rem; right: 0.25rem;">Root</span>
                             <i class="fa-solid fa-circle-user" style="font-size: 1.8rem;"></i>
                         </li>
                         <ul class="dropdown-menu mt-3" aria-labelledby="dropdown-menu">
