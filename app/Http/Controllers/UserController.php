@@ -13,4 +13,8 @@ class UserController extends Controller
     public function create() {
         return view('pages.admin.users.addUser');
     }
+
+    public function adminEdit() {
+        return view('pages.admin.adminEdit');
+    }
 }

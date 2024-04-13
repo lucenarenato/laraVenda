@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/', [AdminController::class, 'index'])->name('initial');
 
+    Route::get('/meus-dados', [UserController::class, 'adminEdit'])->name('edit');
+
     Route::prefix('produtos')->name('product.')->group(function() {
         Route::get('listar', [ProductController::class, 'index'])->name('list');
         Route::get('adicionar', [ProductController::class, 'create'])->name('add');
