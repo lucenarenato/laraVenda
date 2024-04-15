@@ -1,6 +1,17 @@
+@php
+    $isToUpdate = isset($user) && $user->id;
+    $route = $isToUpdate ? 'user.update' : 'user.create';
+@endphp
+
 <main class="bg-white container py-4" style="margin-top: 3.05rem;">
     <div class="px-4 py-2">
-        <form action="" class="w-100 h-100 mt-4">
+        <form action="{{ route($route) }}" method="POST" class="w-100 h-100 mt-4">
+            @csrf
+
+            @if($isToUpdate)
+                @method('PUT')
+            @endif
+
             <strong class="mb-3 d-block text-tertiary">Dados Cadastrais</strong>
             <div class="row pb-2">
                 <div class="col-md-6">
@@ -13,11 +24,11 @@
                 </div>
                 <div class="col-md-6">
                     <label class="fw-bold">Senha</label><br />
-                    <input class="w-100 form-control mt-2 mb-3" type="text" name="password">
+                    <input class="w-100 form-control mt-2 mb-3" type="password" name="password">
                 </div>
                 <div class="col-md-6">
                     <label class="fw-bold">Confirmar Senha</label><br />
-                    <input class="w-100 form-control mt-2 mb-3" type="text" name="confirm_password">
+                    <input class="w-100 form-control mt-2 mb-3" type="password" name="confirm_password">
                 </div>
             </div>
             <hr>
@@ -25,7 +36,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <label class="fw-bold">CEP</label><br />
-                    <select class="w-100 form-control mt-2 mb-3" name="zipcode"></select>
+                    <input class="w-100 form-control mt-2 mb-3" type="text" name="zipcode" id="zipcodeField">
                 </div>
                 <div class="col-md-4">
                     <label class="fw-bold">Logradouro</label><br />
@@ -50,9 +61,13 @@
             </div>
             <div class="row">
                 <div class="col-md-12 mt-4 text-end">
-                    <button class="btn btn-success px-4 py-2">Salvar</button>
+                    <button type="submit" class="btn btn-success px-4 py-2">Salvar</button>
                 </div>
             </div>
         </form>
     </div>
 </main>
+
+@section('js_file')
+    <script src="{{ asset('js/zipcodeSearcher.js') }}"></script>
+@endsection

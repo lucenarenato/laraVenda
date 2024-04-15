@@ -31,20 +31,21 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/', [AdminController::class, 'index'])->name('initial');
 
-    Route::get('/meus-dados', [UserController::class, 'adminEdit'])->name('edit');
+    Route::get('/meus-dados', [UserController::class, 'adminEdit'])->name('admin.edit');
+    Route::put('/meus-dados', [UserController::class, 'update'])->name('user.update');
 
     Route::prefix('produtos')->name('product.')->group(function() {
         Route::get('listar', [ProductController::class, 'index'])->name('list');
-        Route::get('adicionar', [ProductController::class, 'create'])->name('add');
+        Route::get('adicionar', [ProductController::class, 'create'])->name('create');
     });
 
     Route::prefix('pedidos')->name('invoice.')->group(function() {
         Route::get('listar', [InvoiceController::class, 'index'])->name('list');
-        Route::get('adicionar', [InvoiceController::class, 'create'])->name('add');
+        Route::get('adicionar', [InvoiceController::class, 'create'])->name('create');
     });
 
     Route::prefix('usuarios')->name('user.')->group(function() {
         Route::get('listar', [UserController::class, 'index'])->name('list');
-        Route::get('adicionar', [UserController::class, 'create'])->name('add');
+        Route::get('adicionar', [UserController::class, 'create'])->name('create');
     });
 });
