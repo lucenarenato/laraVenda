@@ -15,12 +15,12 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('zipcode', 8);
-            $table->string('public_place', 100);
-            $table->string('address_number', 5);
-            $table->string('neighborhood', 50);
-            $table->string('city', 50);
-            $table->string('state', 2);
+            $table->string('zipcode', 8)->nullable();
+            $table->string('public_place', 100)->nullable();
+            $table->string('address_number', 5)->nullable();
+            $table->string('neighborhood', 50)->nullable();
+            $table->string('city', 50)->nullable();
+            $table->string('state', 2)->nullable();
             $table->unsignedBigInteger('owner_id');
 
             $table->timestamps();
