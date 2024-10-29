@@ -1,3 +1,3 @@
 <x-app-layout>
-    <h1>Registrar</h1>
+    @include('components.userForm')
 </x-app-layout>

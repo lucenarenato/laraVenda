@@ -3,7 +3,7 @@
     $route = $isToUpdate ? 'user.update' : 'user.create';
 @endphp
 
-<main class="bg-white container py-4" style="margin-top: 3.05rem;">
+<main class="bg-white container py-4" style="position: relative; top: 2rem;">
     <div class="px-4 py-2">
         <form action="{{ route($route) }}" method="POST" class="w-100 h-100 mt-4">
             @csrf
