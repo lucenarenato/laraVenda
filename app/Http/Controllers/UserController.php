@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Services\AddressService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -17,19 +16,21 @@ class UserController extends Controller
     ];
 
     public function index() {
-        return view('pages.admin.users.usersList');
+        return view('pages.admin.index');
+    }
+
+    public function userList() {
+        return view('pages.admin.users.index');
     }
 
     public function create() {
-        return view('pages.admin.users.addUser');
+        return view('pages.admin.users.new');
     }
 
-    public function adminEdit() {
-        return view('pages.admin.adminEdit');
-    }
-
-    public function userEdit() {
-        //return view('pages.admin.adminEdit');
+    public function edit() {
+        if (auth()->user()->hasRole('Admin')) {
+            return view('pages.admin.edit');
+        }
     }
 
     public function store(Request $request) {
@@ -40,13 +41,19 @@ class UserController extends Controller
         $userData = $request->only($this->userFields);
         $addressData = $request->except([...$this->userFields, '_token', '_method']);
 
+        $isMyInfoUpdate = false;
+
         if (!$user) {
             $user = auth()->user()->id;
+            $isMyInfoUpdate = true;
         }
 
         $userService->update($userData, $user);
         $addressService->update($addressData, $user);
 
-        return redirect()->route('admin.edit');
+        $routeName = $isMyInfoUpdate ? "me" : "user";
+        $routeName .= ".edit";
+
+        return redirect()->route($routeName);
     }
 }

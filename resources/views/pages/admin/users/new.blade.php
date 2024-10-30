@@ -5,5 +5,5 @@
             <li class="breadcrumb-item fw-bold">Adicionar</li>
         </ol>
     </nav>
-    @include('components.userForm')
+    @include('components.forms.userForm', ['action' => 'user.create'])
 </x-dash-layout>

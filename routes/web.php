@@ -28,11 +28,12 @@ Route::middleware('guest')->name('guest.')->group(function() {
 // Authenticated
 Route::middleware('auth')->group(function() {
     Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    Route::get('/', [UserController::class, 'index'])->name('initial');
 
-    Route::get('/', [AdminController::class, 'index'])->name('initial');
-
-    Route::get('/meus-dados', [UserController::class, 'adminEdit'])->name('admin.edit');
-    Route::put('/meus-dados', [UserController::class, 'update'])->name('user.update');
+    Route::name('me.')->group(function() {
+        Route::get('/meus-dados', [UserController::class, 'edit'])->name('edit');
+        Route::put('/meus-dados', [UserController::class, 'update'])->name('update');
+    });
 
     Route::prefix('produtos')->name('product.')->group(function() {
         Route::get('listar', [ProductController::class, 'index'])->name('list');
@@ -45,7 +46,7 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('usuarios')->name('user.')->group(function() {
-        Route::get('listar', [UserController::class, 'index'])->name('list');
+        Route::get('listar', [UserController::class, 'userList'])->name('list');
         Route::get('adicionar', [UserController::class, 'create'])->name('create');
     });
 });

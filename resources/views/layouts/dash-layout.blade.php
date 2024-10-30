@@ -59,7 +59,7 @@
                             <i class="fa-solid fa-circle-user" style="font-size: 1.8rem;"></i>
                         </li>
                         <ul class="dropdown-menu mt-3" aria-labelledby="dropdown-menu">
-                            <a class="text-decoration-none text-dark" href="{{ route('admin.edit') }}">
+                            <a class="text-decoration-none text-dark" href="{{ route('me.edit') }}">
                                 <li class="nav-item dropdown link-user-hover px-3 py-2">
                                     Meus Dados
                                 </li>
