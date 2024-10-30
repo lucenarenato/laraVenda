@@ -16,6 +16,9 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::create(["name" => "Admin"]);
+        Role::create(["name" => "Client"]);
+        Role::create(["name" => "Warehouse"]);
+        Role::create(["name" => "Seller"]);
 
         DB::table('model_has_roles')->insert([
             'role_id'    => 1,

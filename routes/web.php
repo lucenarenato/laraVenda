@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // No Authenticated
 Route::middleware('guest')->name('guest.')->group(function() {
     Route::get('/login', [AuthenticationController::class, 'index'])->name('index');
-    Route::get('/registrar', [AuthenticationController::class, 'register'])->name('register');
     Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
+    Route::get('/registrar', [AuthenticationController::class, 'register'])->name('register');
 });
 
 // Authenticated

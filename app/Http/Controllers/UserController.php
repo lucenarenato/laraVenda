@@ -16,20 +16,26 @@ class UserController extends Controller
     ];
 
     public function index() {
-        return view('pages.admin.index');
+        if (auth()->user()->hasRole('Admin')) {
+            return view('pages.admin.index');
+        }
     }
 
     public function userList() {
-        return view('pages.admin.users.index');
+        if (auth()->user()->hasRole('Admin')) {
+            return view('pages.admin.users.index');
+        }
     }
 
     public function create() {
-        return view('pages.admin.users.new');
+        if (auth()->user()->hasRole('Admin')) {
+            return view('pages.admin.users.new');
+        }
     }
 
     public function edit() {
         if (auth()->user()->hasRole('Admin')) {
-            return view('pages.admin.edit');
+            return view('pages.admin.users.edit');
         }
     }
 

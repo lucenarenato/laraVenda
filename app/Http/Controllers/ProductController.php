@@ -1,16 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index() {
-        return view('pages.admin.products.productsList');
+        if ($user->hasRole('Admin')) {
+            return view('pages.admin.products.index');
+        }
     }
 
     public function create() {
-        return view('pages.admin.products.addProduct');
+        if ($user->hasRole('Admin')) {
+            return view('pages.admin.products.new');
+        }
     }
 }
