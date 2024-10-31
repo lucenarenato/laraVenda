@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('produtos')->name('product.')->group(function() {
         Route::get('listar', [ProductController::class, 'index'])->name('list');
         Route::get('adicionar', [ProductController::class, 'create'])->name('create');
+        Route::post('adicionar', [ProductController::class, 'store'])->name('store');
     });
 
     Route::prefix('pedidos')->name('invoice.')->group(function() {
