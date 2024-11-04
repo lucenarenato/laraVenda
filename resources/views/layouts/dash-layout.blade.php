@@ -11,14 +11,14 @@
                     <i class="fa-solid fa-box"></i> <span style="display: inline-block; padding-left: 0.8rem;">Produtos <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
                 </li>
                 <div class="dash-sidebar-submenu collapse {{ request()->segment(1) == 'produtos' ? 'show' : '' }}" id="productsCollapse">
-                    <a class="text-decoration-none" href="{{ route('product.create') }}">
-                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('product.create') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
-                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-plus"></i>&nbsp; Adicionar</span>
-                        </li>
-                    </a>
                     <a class="text-decoration-none" href="{{ route('product.list') }}">
                         <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('product.list') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
                             <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-table-list"></i>&nbsp; Listar</span>
+                        </li>
+                    </a>
+                    <a class="text-decoration-none" href="{{ route('product.create') }}">
+                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('product.create') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
+                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-plus"></i>&nbsp; Adicionar</span>
                         </li>
                     </a>
                 </div>
@@ -37,14 +37,14 @@
                     <i class="fa-solid fa-users"></i> <span style="display: inline-block; padding-left: 0.8rem;">Usuários <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
                 </li>
                 <div class="dash-sidebar-submenu collapse {{ request()->segment(1) == 'usuarios' ? 'show' : '' }}" id="usersCollapse">
-                    <a class="text-decoration-none" href="{{ route('user.create') }}">
-                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('user.create') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
-                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-plus"></i>&nbsp; Adicionar</span>
-                        </li>
-                    </a>
                     <a class="text-decoration-none" href="{{ route('user.list') }}">
                         <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('user.list') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
                             <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-table-list"></i>&nbsp; Listar</span>
+                        </li>
+                    </a>
+                    <a class="text-decoration-none" href="{{ route('user.create') }}">
+                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('user.create') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
+                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-plus"></i>&nbsp; Adicionar</span>
                         </li>
                     </a>
                 </div>
@@ -55,7 +55,7 @@
                 <ul class="nav">
                     <div class="dropdown">
                         <li type="button" class="nav-item dropdown-toggle" id="dropdown-menu" data-bs-toggle="dropdown">
-                            <span class="bg-light-gray rounded d-inline-block position-relative px-1" style="bottom: 0.2rem; right: 0.25rem;">Root</span>
+                            <span class="bg-light-gray rounded d-inline-block position-relative px-1" style="bottom: 0.2rem; right: 0.25rem;">{{ auth()->user()->name }}</span>
                             <i class="fa-solid fa-circle-user" style="font-size: 1.8rem;"></i>
                         </li>
                         <ul class="dropdown-menu mt-3" aria-labelledby="dropdown-menu">

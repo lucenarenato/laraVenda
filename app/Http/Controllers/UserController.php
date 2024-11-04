@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\AddressService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -33,9 +34,10 @@ class UserController extends Controller
         }
     }
 
-    public function edit() {
+    public function edit(User $user = null) {
         if (auth()->user()->hasRole('Admin')) {
-            return view('pages.admin.users.edit');
+            $route = $user ? 'pages.admin.users.edit' : 'pages.admin.edit';
+            return view($route);
         }
     }
 

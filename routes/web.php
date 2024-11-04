@@ -39,6 +39,11 @@ Route::middleware('auth')->group(function() {
         Route::get('listar', [ProductController::class, 'index'])->name('list');
         Route::get('adicionar', [ProductController::class, 'create'])->name('create');
         Route::post('adicionar', [ProductController::class, 'store'])->name('store');
+        Route::get('{product}/editar', [ProductController::class, 'edit'])->name('edit')->withTrashed();
+        Route::put('{product}/editar', [ProductController::class, 'update'])->name('update')->withTrashed();
+
+        Route::put('/{product}/alterar-status', [ProductController::class, 'changeStatus'])->name('changeStatus')->withTrashed();
+        Route::delete('/{product}/excluir', [ProductController::class, 'delete'])->name('delete')->withTrashed();
     });
 
     Route::prefix('pedidos')->name('invoice.')->group(function() {

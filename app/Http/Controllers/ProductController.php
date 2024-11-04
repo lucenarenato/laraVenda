@@ -13,11 +13,11 @@ class ProductController extends Controller
 
         $searchParams = array_filter($queryParams, fn($item) => $item !== null);
 
-        if (count($searchParams)) {
-            $products->where('id', $searchParams['q'])->orWhere('sku', $searchParams['q']);
+        if (count($searchParams) && isset($searchParams['q'])) {
+            $products->where('id', 'like', "%$searchParams[q]%")->orWhere('sku', 'like', "%$searchParams[q]%");
         }
 
-        $products = $products->get();
+        $products = $products->withTrashed()->get();
 
         if (auth()->user()->hasRole('Admin')) {
             return view('pages.admin.products.index', ['products' => $products]);
@@ -41,5 +41,30 @@ class ProductController extends Controller
 
             return redirect()->route('product.list');
         }
+    }
+
+    public function edit(Product $product) {
+        if (auth()->user()->hasRole(['Admin', 'Warehouse'])) {
+            return view('pages.admin.products.edit', ['product' => $product]);
+        }
+    }
+
+    public function update(Request $request, Product $product) {
+        if (auth()->user()->hasRole(['Admin', 'Warehouse'])) {
+            $data = $request->all();
+            $product->fill($data);
+
+            $product->save();
+
+            return redirect()->route('product.list');
+        }
+    }
+
+    public function changeStatus(Product $product) {
+        $product->deleted_at ? $product->restore() : $product->delete();
+    }
+
+    public function delete(Product $product) {
+        $product->forceDelete();
     }
 }

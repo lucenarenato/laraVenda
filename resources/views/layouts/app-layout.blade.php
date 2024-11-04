@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        {{-- bootstrap css --}}
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        {{-- font awesome css --}}
-        <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {{-- bootstrap css --}}
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-        <title>Laravel</title>
-    </head>
-    <body>
-        {{ $slot }}
+    {{-- font awesome css --}}
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-        {{-- bootstrap js --}}
-        <script type="module" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <title>Laravel</title>
+</head>
 
-        {{-- fontawesome js --}}
-        <script src="{{ asset('js/all.min.js') }}"></script>
+<body>
+    {{ $slot }}
 
-        <script src="{{ asset('js/app.js') }}"></script>
-        @yield('js_file')
-    </body>
+    {{-- bootstrap js --}}
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+    {{-- fontawesome js --}}
+    <script src="{{ asset('js/all.min.js') }}"></script>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+
 </html>

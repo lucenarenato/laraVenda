@@ -5,5 +5,5 @@
             <li class="breadcrumb-item fw-bold">Editar</li>
         </ol>
     </nav>
-   @include('components.forms.userForm', ['action' => 'user.update'])
+   @include('components.forms.userForm', ['action' => 'me.update'])
 </x-dash-layout>
