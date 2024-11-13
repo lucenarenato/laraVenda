@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="fw-bold mb-2">Categorias</label><br />
-                    <select class="w-100 form-control hide mt-2 mb-3 categories-select" name="categories" multiple="multiple" id="categories"></select>
+                    <select class="w-100 form-select hide mt-2 mb-3 categories-select" name="categories" multiple="multiple" id="categories"></select>
                 </div>
                 <div class="col-md-4">
                     <label class="fw-bold">Imagem</label><br />

@@ -14,7 +14,9 @@ class ProductController extends Controller
         $searchParams = array_filter($queryParams, fn($item) => $item !== null);
 
         if (count($searchParams) && isset($searchParams['q'])) {
-            $products->where('id', 'like', "%$searchParams[q]%")->orWhere('sku', 'like', "%$searchParams[q]%");
+            $products->where('id', 'like', "%$searchParams[q]%")
+            ->orWhere('sku', 'like', "%$searchParams[q]%")
+            ->orWhere('name', 'like', "%$searchParams[q]%");
         }
 
         $products = $products->withTrashed()->get();

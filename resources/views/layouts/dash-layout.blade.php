@@ -22,6 +22,20 @@
                         </li>
                     </a>
                 </div>
+
+
+                <li type="button" class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0" data-bs-toggle="collapse" data-bs-target="#tagsCollapse">
+                    <i class="fa-solid fa-tag"></i> <span style="display: inline-block; padding-left: 0.8rem;">Etiquetas <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
+                </li>
+                <div class="dash-sidebar-submenu collapse {{ request()->segment(1) == 'etiquetas' ? 'show' : '' }}" id="tagsCollapse">
+                    <a class="text-decoration-none" href="{{ route('tag.list') }}">
+                        <li class="list-group-item border-0 link-dark-hover text-light py-3 {{ request()->routeIs('tag.list') ? 'active-dash-sidebar' : 'dash-sidebar-submenu' }} m-0">
+                            <span class="fs-7" style="display: inline-block; padding-left: 2.0rem;"><i class="fa-solid fa-table-list"></i>&nbsp; Listar</span>
+                        </li>
+                    </a>
+                </div>
+
+
                 <li type="button" class="list-group-item bg-dark border-0 link-dark-hover text-light py-3 m-0" data-bs-toggle="collapse" data-bs-target="#invoicesCollapse">
                     <i class="fa-solid fa-list-ul"></i> <span style="display: inline-block; padding-left: 0.8rem;">Pedidos <i class="fa-solid fa-chevron-down position-relative" style="font-size: 0.8rem; left: 0.3rem;"></i></span>
                 </li>

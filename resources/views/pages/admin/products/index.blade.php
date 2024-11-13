@@ -18,7 +18,7 @@
                                 value="{{ $_GET['q'] ?? '' }}"" type="text">
                         </div>
                         <div class="col-md-4">
-                            <select class="categories-select form-control hide" multiple="multiple">
+                            <select class="categories-select form-select hide" multiple="multiple">
                             </select>
                         </div>
                         <div class="col-md-3">

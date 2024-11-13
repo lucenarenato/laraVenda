@@ -20,25 +20,5 @@
                 }
             },
         });
-
-        $('.change-status-btn').on('click', function() {
-            $.ajax({
-                url: `/produtos/${ $(this).data('id') }/alterar-status`,
-                method: 'PUT',
-                data: {
-                    _token: $('input[name="_token"]').val()
-                }
-            }).done(() => window.location.reload())
-        });
-
-        $('.delete-btn').on('click', function() {
-            $.ajax({
-                url: `/produtos/${ $(this).data('id') }/excluir`,
-                method: 'DELETE',
-                data: {
-                    _token: $('input[name="_token"]').val()
-                }
-            }).done(() => window.location.reload())
-        });
     </script>
 </x-script-layout>

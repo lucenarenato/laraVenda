@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,8 +43,14 @@ Route::middleware('auth')->group(function() {
         Route::get('{product}/editar', [ProductController::class, 'edit'])->name('edit')->withTrashed();
         Route::put('{product}/editar', [ProductController::class, 'update'])->name('update')->withTrashed();
 
-        Route::put('/{product}/alterar-status', [ProductController::class, 'changeStatus'])->name('changeStatus')->withTrashed();
-        Route::delete('/{product}/excluir', [ProductController::class, 'delete'])->name('delete')->withTrashed();
+        Route::put('{product}/alterar-status', [ProductController::class, 'changeStatus'])->name('changeStatus')->withTrashed();
+        Route::delete('{product}/excluir', [ProductController::class, 'delete'])->name('delete')->withTrashed();
+    });
+
+    Route::prefix('etiquetas')->name('tag.')->group(function() {
+        Route::get('listar', [TagController::class, 'index'])->name('list');
+        Route::post('adicionar', [TagController::class, 'store'])->name('store');
+        Route::get('{tag}/editar', [TagController::class, 'edit'])->name('edit');
     });
 
     Route::prefix('pedidos')->name('invoice.')->group(function() {
