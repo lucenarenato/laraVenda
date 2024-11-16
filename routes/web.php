@@ -51,6 +51,9 @@ Route::middleware('auth')->group(function() {
         Route::get('listar', [TagController::class, 'index'])->name('list');
         Route::post('adicionar', [TagController::class, 'store'])->name('store');
         Route::get('{tag}/editar', [TagController::class, 'edit'])->name('edit');
+
+        Route::put('{tag}/editar', [TagController::class, 'update'])->name('edit');
+        Route::delete('{tag}/excluir', [TagController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('pedidos')->name('invoice.')->group(function() {

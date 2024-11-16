@@ -18,7 +18,6 @@ class CreateTagsTable extends Migration
             $table->string('name', 30);
             $table->enum('type', ['group', 'tag_name']);
             $table->integer('group_id')->nullable();
-            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

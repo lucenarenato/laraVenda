@@ -11,22 +11,40 @@ class TagController extends Controller
     public function index(Request $request)
     {
         $queryParams = $request->query();
-        $tags = DB::table('tags AS t')
-            ->selectRaw('*, if(t.group_id is null, t.id, t.group_id) as group_reference')
-            ->orderBy('group_reference')
-            ->orderByRaw("type <> 'group'");
-
         $searchParams = array_filter($queryParams, fn($item) => $item !== null);
 
+        $tagsWhere = "";
+        $countRefAnd = "";
+        $tableResultWhere = "";
+
+        $input = [];
+
         if (count($searchParams) && isset($searchParams['q'])) {
-            $tags->where('id', 'like', "%$searchParams[q]%")
-                ->orWhere('name', 'like', "%$searchParams[q]%");
+            $tagsWhere = "WHERE (t.name LIKE :whereName OR t.type LIKE 'group')";
+            $countRefAnd = "AND t2.name LIKE :countRefWhereName";
+            $tableResultWhere = "WHERE table_result.name LIKE :tableResultName OR table_result.count_reference > 0";
+
+            $input[':countRefWhereName'] = "%".$searchParams['q']."%";
+            $input[':whereName'] = "%".$searchParams['q']."%";
+            $input[':tableResultName'] = "%".$searchParams['q']."%";
         }
 
-        $tags = $tags->orderBy('group_id')->get();
+        $sql = "
+            SELECT * FROM (
+                SELECT *, IF(t.group_id IS NULL, t.id, t.group_id) AS group_reference,
+                (SELECT COUNT(group_id) FROM tags t2 WHERE t2.group_id = t.id $countRefAnd) AS count_reference
+                FROM tags t
+                $tagsWhere
+                ) AS table_result
+            $tableResultWhere
+            ORDER BY group_reference,
+            TYPE <> 'group';
+        ";
 
-        $groups = $tags->filter(fn($tag) => $tag->type === 'group');
-        $tagNames = $tags->filter(fn($tag) => $tag->type === 'tag_name');
+        $tags = DB::select($sql, $input);
+
+        $groups = array_filter($tags, (fn($tag) => $tag->type === 'group'));
+        $tagNames = array_filter($tags, (fn($tag) => $tag->type === 'tag_name'));
 
         if (auth()->user()->hasRole('Admin')) {
             return view('pages.admin.tags.index', ['tagNames' => $tagNames, 'groups' => $groups, 'tags' => $tags]);
@@ -51,7 +69,37 @@ class TagController extends Controller
         return redirect()->route('tag.list');
     }
 
-    public function edit(Tag $tag) {
+    public function edit(Tag $tag)
+    {
         return response()->json(['data' => $tag]);
+    }
+
+    public function update(Request $request, Tag $tag)
+    {
+        if (auth()->user()->hasRole('Admin')) {
+            $data = $request->all();
+
+            if (!isset($data['group_id']) || (int) $data['group_id'] !== $tag->id) {
+                if ($data['type'] !== 'tag_name') {
+                    $data['group_id'] = null;
+                }
+
+                $tag->fill($data);
+                $tag->save();
+            }
+
+            return redirect()->route('tag.list');
+        }
+    }
+
+    public function delete(Tag $tag)
+    {
+        if (auth()->user()->hasRole('Admin')) {
+            if ($tag->type === 'group') {
+                Tag::where('group_id', $tag->id)->delete();
+            }
+
+            $tag->delete();
+        }
     }
 }

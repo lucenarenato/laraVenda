@@ -29,7 +29,7 @@
             </div>
             <div class="container rounded-3 p-4 bg-white">
                 <input type="hidden" data-bs-toggle="modal" data-bs-target="#tagFormModal" id="editTagModalTrigger">
-                @if ($groups->count())
+                @if (count($groups))
                     <table class="table overflow-hidden mt-3">
                         <tbody>
                             @foreach ($tags as $tag)
@@ -58,6 +58,16 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @if(!$tag->count_reference && $tag->type === 'group')
+                                <tr>
+                                    <td
+                                        class="px-3 py-2 align-middle fw-bold text-tertiary">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <p class="px-3 py-2 text-tertiary text-center my-0">Este grupo está vazio.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -88,14 +98,14 @@
                                 <label class="mb-2" for="type">Tipo</label>
                                 <select class="form-select" name="type" id="type">
                                     <option value="group">Grupo</option>
-                                    <option value="tag_name" selected>Etiqueta</option>
+                                    <option value="tag_name">Etiqueta</option>
                                 </select>
                             </div>
                             <div class="col-md-12 mb-2 tag-group">
                                 <label class="mb-2" for="group">Grupo</label>
                                 <select class="form-select" name="group_id" id="group_id" required>
                                     @foreach ($groups as $group)
-                                        <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                        <option class="group-option" value="{{ $group->id }}">{{ $group->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -120,19 +130,27 @@
     <script>
         $('#newTagButton').on('click', function() {
             $('#tagForm').attr('action', `${window.location.origin}/etiquetas/adicionar`);
+            $('input[name="_method"]').remove();
 
             $('.tag-group').hide();
+            $('#group_id').removeAttr('required');
+
             $('.modal-title').text('Criar Etiqueta');
 
             $('#name').val('');
-            $('#type').val('tag_name');
+            $('#type').val('group');
             $('#description').val('');
             $('#group_id').val('');
-            $('.tag-group').show();
         });
 
         $('#type').on('change', function() {
-            $(this).val() === 'tag_name' ? $('.tag-group').show() : $('.tag-group').hide();
+            if ($(this).val() === 'tag_name') {
+                $('.tag-group').show();
+                $('#group_id').prop('required', true);
+            } else {
+                $('.tag-group').hide();
+                $('#group_id').removeAttr('required');
+            }
         });
 
         $('.edit-btn').on('click', function() {
@@ -140,20 +158,33 @@
                 url: `/etiquetas/${ $(this).parent().attr('id') }/editar`,
                 method: 'GET',
                 data: {
-                    _token: $('input[name="_token"]').val()
+                    _token: $('input[name="_token"]').val(),
                 }
             }).done(({ data }) => {
                 const { id, name, type, group_id, description } = data;
+                const putInput = "<input type='hidden' name='_method' value='PUT'>";
+
+                $('.group-option').each(function() {
+                    $(this).show();
+
+                    if (parseInt($(this).val()) === id) {
+                        $(this).hide();
+                    }
+                });
 
                 $('#editTagModalTrigger').trigger('click');
                 $('.tag-group').show();
 
                 $('#tagForm').attr('action', `${window.location.origin}/etiquetas/${id}/editar`);
+                $('#tagForm').append(putInput);
+
                 $('.modal-title').text('Editar Etiqueta');
 
                 $('#name').val(name);
                 $('#type').val(type);
                 $('#description').val(description);
+
+                $('#type').on('change', () => ($('#group_id').val(group_id)));
 
                 if (type === 'tag_name') {
                     $('#group_id').val(group_id);
@@ -166,7 +197,7 @@
 
         $('.delete-btn').on('click', function() {
             $.ajax({
-                url: `/etiquetas/${ $(this).data('id') }/excluir`,
+                url: `/etiquetas/${ $(this).parent().attr('id') }/excluir`,
                 method: 'DELETE',
                 data: {
                     _token: $('input[name="_token"]').val()
