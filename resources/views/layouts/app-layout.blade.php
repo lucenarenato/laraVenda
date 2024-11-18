@@ -25,6 +25,13 @@
     {{-- fontawesome js --}}
     <script src="{{ asset('js/all.min.js') }}"></script>
 
+    {{-- jquery js --}}
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
+    {{-- jquery mask js --}}
+    <script src="{{ asset('js/jqueryMask.min.js') }}"></script>
+    <script src="{{ asset('js/masks.js') }}"></script>
+
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

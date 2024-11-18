@@ -10,15 +10,5 @@
 </x-dash-layout>
 
 <x-script-layout>
-    <script>
-        $('.categories-select').toggleClass('hide');
-        $('.categories-select').select2({
-            tags: true,
-            language: {
-                noResults: function() {
-                    return "Nenhuma categoria encontrada.";
-                }
-            },
-        });
-    </script>
+    @include('pages.admin.products.scripts.form-script')
 </x-script-layout>

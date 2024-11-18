@@ -15,7 +15,6 @@ class Product extends Model
         'cost_price',
         'sell_price',
         'sku',
-        'image',
         'description',
     ];
 }

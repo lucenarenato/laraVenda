@@ -10,35 +10,5 @@
 </x-dash-layout>
 
 <x-script-layout>
-    <script>
-        $('.categories-select').toggleClass('hide');
-        $('.categories-select').select2({
-            tags: true,
-            language: {
-                noResults: function() {
-                    return "Nenhuma categoria encontrada.";
-                }
-            },
-        });
-
-        $('.change-status-btn').on('click', function() {
-            $.ajax({
-                url: `/produtos/${ $(this).data('id') }/alterar-status`,
-                method: 'PUT',
-                data: {
-                    _token: $('input[name="_token"]').val()
-                }
-            }).done(() => window.location.reload())
-        });
-
-        $('.delete-btn').on('click', function() {
-            $.ajax({
-                url: `/produtos/${ $(this).data('id') }/excluir`,
-                method: 'DELETE',
-                data: {
-                    _token: $('input[name="_token"]').val()
-                }
-            }).done(() => window.location.reload())
-        });
-    </script>
+    @include('pages.admin.products.scripts.form-script')
 </x-script-layout>

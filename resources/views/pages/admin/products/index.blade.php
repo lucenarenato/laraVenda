@@ -19,6 +19,13 @@
                         </div>
                         <div class="col-md-4">
                             <select class="categories-select form-select hide" multiple="multiple">
+                                @foreach($tagGroups as $name => $tags)
+                                    <optgroup label="{{ $name }}">
+                                        @foreach($tags as $tag)
+                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -36,6 +43,7 @@
                         <thead class="table-info">
                             <tr>
                                 <th class="px-3 py-2 text-tertiary">#</th>
+                                <th class="px-3 py-2 text-tertiary text-center">Imagem</th>
                                 <th class="px-3 py-2 text-tertiary">SKU</th>
                                 <th class="px-3 py-2 text-tertiary">Nome</th>
                                 <th class="px-3 py-2 text-tertiary">Preço de Custo</th>
@@ -49,15 +57,25 @@
                             @foreach ($products as $product)
                                 <tr class="{{ $product['deleted_at'] ? 'inactive' : '' }}">
                                     <td class="px-3 py-2 align-middle text-tertiary">{{ $product['id'] }}</td>
+                                    <td class="px-3 py-2 align-middle text-tertiary text-center">
+                                        <img class="product-img" src="{{ isset($product['image']) ? Storage::url($product['image']) : asset('img/no-photo-available.png') }}" alt="{{ 'Foto de '.$product['name'] }}">
+                                    </td>
                                     <td class="px-3 py-2 align-middle text-tertiary">{{ $product['sku'] }}</td>
                                     <td class="px-3 py-2 align-middle text-tertiary">{{ $product['name'] }}</td>
-                                    <td class="px-3 py-2 align-middle text-tertiary">{{ $product['cost_price'] }}</td>
-                                    <td class="px-3 py-2 align-middle text-tertiary">{{ $product['sell_price'] }}</td>
+                                    <td class="px-3 py-2 align-middle text-tertiary mask">{{ number_format($product['cost_price'], 2, ',', '.') }}</td>
+                                    <td class="px-3 py-2 align-middle text-tertiary">{{ number_format($product['sell_price'], 2, ',', '.') }}</td>
                                     <td class="px-3 py-2 align-middle text-tertiary">
                                         {{ $product['deleted_at'] ? 'Inativo' : 'Ativo' }}</td>
-                                    <td class="px-3 py-2 align-middle text-tertiary text-center">-</td>
-                                    <td class="px-3 py-2">
-                                        <div class="d-flex justify-content-between">
+                                    <td class="px-3 py-2 align-middle">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="tag">Veículo</span>
+                                            <span class="tag">Automóvel</span>
+                                            <span class="tag">0 KM</span>
+                                            <span class="tag bg-info" style="cursor: pointer;" data-bs-toggle="tooltip" data-bs-html='true' data-bs-placement="top" title="Veículo; Automóvel; 0KM; Menor Preço; Novo">...</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2 align-middle">
+                                        <div class="text-center">
                                             <a href="{{ route('product.edit', ['product' => $product['id']]) }}"
                                                 type="button" class="btn btn-outline-secondary border-0"
                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
@@ -93,7 +111,6 @@
     <script>
         $('.categories-select').toggleClass('hide');
         $('.categories-select').select2({
-            tags: true,
             placeholder: "Buscar Categoria(s)",
             language: {
                 noResults: function() {

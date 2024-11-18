@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function() {
         Route::get('adicionar', [InvoiceController::class, 'create'])->name('create');
     });
 
-    Route::prefix('usuarios')->name('user.')->group(function() {
+    Route::prefix('usuarios')->middleware(['role:Admin'])->name('user.')->group(function() {
         Route::get('listar', [UserController::class, 'userList'])->name('list');
         Route::get('adicionar', [UserController::class, 'create'])->name('create');
     });

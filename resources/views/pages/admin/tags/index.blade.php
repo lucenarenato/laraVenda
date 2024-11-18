@@ -109,10 +109,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-12">
-                                <label class="mb-2" for="description">Descrição</label>
-                                <textarea class="form-control" name="description" id="description"></textarea>
-                            </div>
                         </div>
 
                     </div>
