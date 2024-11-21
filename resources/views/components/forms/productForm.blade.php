@@ -15,12 +15,12 @@
                         value="{{ $product['name'] ?? '' }}">
                 </div>
                 <div class="col-md-4">
-                    <label class="fw-bold">Preço de Custo</label><br />
+                    <label class="fw-bold">Preço de Custo (R$)</label><br />
                     <input class="w-100 form-control mt-2 mb-3 money" type="text" name="cost_price" id="cost_price"
                         value="{{ $product['cost_price'] ?? '' }}">
                 </div>
                 <div class="col-md-4">
-                    <label class="fw-bold">Preço de Venda</label><br />
+                    <label class="fw-bold">Preço de Venda (R$)</label><br />
                     <input class="w-100 form-control mt-2 mb-3 money" type="text" name="sell_price" id="sell_price"
                         value="{{ $product['sell_price'] ?? '' }}">
                 </div>
@@ -31,12 +31,12 @@
                 </div>
                 <div class="col-md-4">
                     <label class="fw-bold mb-2">Categorias</label><br />
-                    <select class="w-100 form-select hide mt-2 mb-3 categories-select" name="categories"
+                    <select class="w-100 form-select hide mt-2 mb-3 categories-select" name="categories[]"
                         multiple="multiple" id="categories">
                         @foreach ($tagGroups as $name => $tags)
                             <optgroup label="{{ $name }}">
                                 @foreach ($tags as $tag)
-                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                    <option value="{{ $tag->id }}" {{ in_array($tag->id, $productTags ?? []) ? 'selected' : '' }}>{{ $tag->name }}</option>
                                 @endforeach
                             </optgroup>
                         @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductsTags;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -81,6 +82,8 @@ class TagController extends Controller
 
             if (!isset($data['group_id']) || (int) $data['group_id'] !== $tag->id) {
                 if ($data['type'] !== 'tag_name') {
+                    ProductsTags::where('tag_id', $tag->id)->delete();
+
                     $data['group_id'] = null;
                 }
 
@@ -96,7 +99,13 @@ class TagController extends Controller
     {
         if (auth()->user()->hasRole('Admin')) {
             if ($tag->type === 'group') {
+                $tagChilds = Tag::where('group_id', $tag->id)->get('id')->toArray();
+                $tagChilds = array_column($tagChilds, 'id');
+
+                ProductsTags::whereIn('tag_id', $tagChilds)->delete();
                 Tag::where('group_id', $tag->id)->delete();
+            } else {
+                ProductsTags::where('tag_id', $tag->id)->delete();
             }
 
             $tag->delete();

@@ -21,7 +21,6 @@ class CreateProductsTable extends Migration
             $table->string('sku')->unique();
             $table->string('image')->nullable();
             $table->text('description');
-            $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

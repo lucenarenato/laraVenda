@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductsTags;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,24 @@ class ProductController extends Controller
             $searchParams = array_filter($queryParams, fn($item) => $item !== null);
 
             if (count($searchParams) && isset($searchParams['q'])) {
-                $products->where('id', 'like', "%$searchParams[q]%")
-                    ->orWhere('sku', 'like', "%$searchParams[q]%")
-                    ->orWhere('name', 'like', "%$searchParams[q]%");
+                $products->where('products.id', 'like', "%$searchParams[q]%")
+                    ->orWhere('products.sku', 'like', "%$searchParams[q]%")
+                    ->orWhere('products.name', 'like', "%$searchParams[q]%");
+            }
+
+            if (isset($queryParams['categories'])) {
+                $products->join('products_tags', 'products.id', 'products_tags.product_id')
+                    ->whereIn('products_tags.tag_id', $queryParams['categories'])
+                    ->select([
+                        'products.id',
+                        'products.name',
+                        'products.cost_price',
+                        'products.sell_price',
+                        'products.sku',
+                        'products.image',
+                        'products.description'
+                        ])
+                    ->groupBy('products.id');
             }
 
             $products = $products->withTrashed()->get();
@@ -72,7 +88,7 @@ class ProductController extends Controller
 
             foreach ($moneyFields as $index) {
                 if (isset($data[$index])) {
-                    $data[$index] = floatval($data[$index]);
+                    $data[$index] = floatval(str_replace(',', '.', str_replace('.', '', $data[$index])));
                 }
             }
 
@@ -95,6 +111,19 @@ class ProductController extends Controller
                 $entity->save();
             }
 
+            if (isset($data['categories'])) {
+                $productTags = [];
+
+                foreach($data['categories'] as $tagID) {
+                    $productTags[] = [
+                        'product_id' => $entity->id,
+                        'tag_id' => $tagID,
+                    ];
+                }
+
+                ProductsTags::insert($productTags);
+            }
+
             return redirect()->route('product.list');
         }
     }
@@ -103,6 +132,12 @@ class ProductController extends Controller
     {
         if (auth()->user()->hasRole(['Admin', 'Warehouse'])) {
             $tags = Tag::all()->keyBy('id');
+            $productTags = ProductsTags::select('tag_id')
+                    ->where('product_id', $product->id)
+                    ->get()
+                    ->toArray();
+
+            $productTags = array_column($productTags, 'tag_id');
 
             $groups = $tags->filter(fn($item) => $item->type === 'group');
             $tag_names = $tags->filter(fn($item) => $item->type === 'tag_name');
@@ -117,6 +152,7 @@ class ProductController extends Controller
             return view('pages.admin.products.edit', [
                 'product' => $product,
                 'tagGroups' => $tagGroups,
+                'productTags' => $productTags,
             ]);
         }
     }
@@ -129,7 +165,7 @@ class ProductController extends Controller
 
             foreach ($moneyFields as $index) {
                 if (isset($data[$index])) {
-                    $data[$index] = floatval($data[$index]);
+                    $data[$index] = floatval(str_replace(',', '.', str_replace('.', '', $data[$index])));
                 }
             }
 
@@ -154,6 +190,35 @@ class ProductController extends Controller
                 $product->save();
             }
 
+            $registeredProductTags = ProductsTags::select('tag_id')
+                ->where('product_id', $product->id)
+                ->get()
+                ->toArray();
+
+            if (count($registeredProductTags)) {
+                $registeredProductTags = array_column($registeredProductTags, 'tag_id');
+            }
+
+            $productTagsToAdd = array_diff($data['categories'] ?? [], $registeredProductTags);
+            $productTagsToRemove = array_diff($registeredProductTags, $data['categories'] ?? []);
+
+            if (count($productTagsToAdd)) {
+                $productTags = [];
+
+                foreach($productTagsToAdd as $tagID) {
+                    $productTags[] = [
+                        'product_id' => $product->id,
+                        'tag_id' => $tagID,
+                    ];
+                }
+
+                ProductsTags::insert($productTags);
+            }
+
+            if (count($productTagsToRemove)) {
+                ProductsTags::whereIn('tag_id', $productTagsToRemove)->delete();
+            }
+
             return redirect()->route('product.list');
         }
     }
@@ -165,6 +230,7 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
+        ProductsTags::where('product_id', $product->id)->delete();
         $product->forceDelete();
     }
 }
