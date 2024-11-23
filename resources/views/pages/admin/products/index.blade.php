@@ -205,10 +205,10 @@
         function request() {
             $.ajax({
                 url: $('#requestRoute').val(),
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
                 method: $('#requestMethod').val(),
-                data: {
-                    _token: $('input[name="_token"]').val()
-                }
             }).done(() => window.location.reload());
         }
     </script>

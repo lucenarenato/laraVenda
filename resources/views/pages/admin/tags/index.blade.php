@@ -11,8 +11,8 @@
     <main class="container py-4 mt-1">
         <div class="px-4 pt-2 pb-4">
             <div class="container rounded-3 mb-4 ml-2 p-4 bg-white">
+                @csrf
                 <form action="{{ route('tag.list') }}">
-                    @csrf
                     <div class="row">
                         <div class="col-md-9">
                             <input class="form-control" placeholder="Buscar Etiqueta ou Grupo" name="q"
@@ -153,9 +153,9 @@
             $.ajax({
                 url: `/etiquetas/${ $(this).parent().attr('id') }/editar`,
                 method: 'GET',
-                data: {
-                    _token: $('input[name="_token"]').val(),
-                }
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
             }).done(({ data }) => {
                 const { id, name, type, group_id, description } = data;
                 const putInput = "<input type='hidden' name='_method' value='PUT'>";
@@ -195,9 +195,9 @@
             $.ajax({
                 url: `/etiquetas/${ $(this).parent().attr('id') }/excluir`,
                 method: 'DELETE',
-                data: {
-                    _token: $('input[name="_token"]').val()
-                }
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                },
             }).done(() => window.location.reload());
         });
     </script>
