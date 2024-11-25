@@ -63,7 +63,7 @@
                                     <td
                                         class="px-3 py-2 align-middle fw-bold text-tertiary">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <p class="px-3 py-2 text-tertiary text-center my-0">Este grupo está vazio.</p>
+                                            <p class="px-3 py-2 text-tertiary text-center my-0">Nenhuma etiqueta encontrada.</p>
                                         </div>
                                     </td>
                                 </tr>

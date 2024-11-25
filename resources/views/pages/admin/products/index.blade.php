@@ -40,6 +40,7 @@
             </div>
             <div class="container rounded-3 p-4 bg-white">
                 @if ($products->count())
+                {{ $products->onEachSide(2)->links() }}
                     <table class="table overflow-hidden mt-3">
                         <thead class="table-info">
                             <tr>
@@ -127,6 +128,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                   <p class="text-tertiary text-end semi-bold m-0">
+                        Exibindo {{ $products->count() }} de {{ $products->total() }} produtos
+                   </p>
                 @else
                     <p class="px-3 py-2 text-tertiary text-center my-0">Nenhum produto encontrado.</p>
                 @endif

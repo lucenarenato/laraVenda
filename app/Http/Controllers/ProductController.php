@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductsTags;
 use App\Models\Tag;
@@ -38,7 +39,7 @@ class ProductController extends Controller
                     ->groupBy('products.id');
             }
 
-            $products = $products->withTrashed()->get();
+            $products = $products->withTrashed()->paginate(10);
 
             $tags = Tag::all()->keyBy('id');
 
@@ -80,7 +81,7 @@ class ProductController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         if (auth()->user()->hasRole(['Admin', 'Warehouse'])) {
             $data = $request->all();
@@ -157,7 +158,7 @@ class ProductController extends Controller
         }
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         if (auth()->user()->hasRole(['Admin', 'Warehouse'])) {
             $data = $request->all();
