@@ -3,30 +3,65 @@ version: "3.7"
 services:
     # image project
     app:
-        container_name: ceisc-laravel
+        container_name: "${APP_NAME}_laravel"
         build:
             context: .
             dockerfile: Dockerfile
         image: especializati/laravel-app
         restart: unless-stopped
-        working_dir: /var/www/
+        working_dir: /var/www/html
         volumes:
-            - ./:/var/www
+            - ./:/var/www/html
         networks:
             - laravel
 
     # nginx
     nginx:
-        container_name: ceisc-nginx
+        container_name: "${APP_NAME}_nginx"
         image: nginx:alpine
         restart: unless-stopped
         ports:
             - "8000:80"
         volumes:
-            - ./:/var/www
+            - ./:/var/www/html
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
             - laravel
+
+    mysql:
+        container_name: "${APP_NAME}_MYSQL"
+        image: mysql:8.0.30-debian
+        command: --default-authentication-plugin=mysql_native_password
+            --max_connections=666
+            --bind-address=0.0.0.0
+            --transaction-isolation=READ-COMMITTED
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        volumes:
+            - mega-mysql:/var/lib/mysql
+            - "./create-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh"
+        cap_add:
+            - SYS_NICE # CAP_SYS_NICE
+        security_opt:
+            - seccomp:unconfined
+        ports:
+            - "${FORWARD_DB_PORT:-3306}:3306"
+        networks:
+            - laravel
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+
 networks:
     laravel:
         driver: bridge
+volumes:
+    mega-mysql:
+        driver: local
