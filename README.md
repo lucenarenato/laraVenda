@@ -7,6 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+<p align="center"><a href="#" target="_blank"><img src="Screenshot_2024-11-26_175121.png" width="720"></a></p>
+
+
 ## Limpar cache
 
 ```sh
